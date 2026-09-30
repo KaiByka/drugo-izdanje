@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kaibyka.github.io/drugo-izdanje/sitemap.xml

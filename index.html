@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antikvarijat Drugo izdanje — rabljene knjige, Karlovac</title>
+  <meta name="description" content="Rabljene knjige iz jedne osobne biblioteke u Karlovcu. Antikvarijat Drugo izdanje: svaki naslov ima svoj oglas — kupovina preko Njuškala i Vinteda.">
+  <meta name="geo.placename" content="Karlovac">
+  <meta property="og:title" content="Antikvarijat Drugo izdanje — rabljene knjige, Karlovac">
+  <meta property="og:description" content="Knjige iz jedne osobne biblioteke u Karlovcu — kupovina preko Njuškala i Vinteda.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://kaibyka.github.io/drugo-izdanje/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Antikvarijat Drugo izdanje",
+    "alternateName": "Drugo izdanje",
+    "description": "Rabljene knjige iz jedne osobne biblioteke u Karlovcu.",
+    "inLanguage": "hr"
+  }
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231a1712'/%3E%3Ctext x='32' y='46' font-family='Georgia, serif' font-style='italic' font-size='44' fill='%23efe9dc' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="vrh">
+
+  <p class="rub" aria-hidden="true">OSOBNA BIBLIOTEKA — KATALOG 2026 — HRVATSKA</p>
+
+  <header class="zaglavlje">
+    <a class="brand" href="#vrh">Antikvarijat Drugo izdanje</a>
+    <p class="zag-sredina">OVA STRANICA JE SAMO IZLOG — KUPNJA IDE PREKO OGLASA</p>
+    <p class="zag-desno">U PONUDI: <span id="broj-knjiga">—</span></p>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-tekst">
+        <p class="nadnaslov mono">OSOBNA BIBLIOTEKA SE ČISTI · KARLOVAC · OTVORENO DOK TRAJE ZALIHA</p>
+        <h1>
+          <span class="r1">ANTIKVARIJAT</span>
+          <span class="r2">Drugo izdanje</span>
+        </h1>
+        <p class="uvod">
+          Prelazim na manji format življenja, pa knjige moraju na nove police.
+          Svaki naslov ovdje već ima svoj oglas — klikni i kupi preko
+          <strong>Njuškala</strong> ili <strong>Vinteda</strong>.
+          Poruka, dogovor i plaćanje dešavaju se na platformi; ovo je samo izlog.
+        </p>
+      </div>
+
+      <div class="hero-bedz" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="bedz-tekst">
+          <defs>
+            <path id="bedz-put" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/>
+          </defs>
+          <text>
+            <textPath href="#bedz-put">PRODAJA PREKO OGLASA · NJUŠKALO · VINTED · SAMO IZLOG ·</textPath>
+          </text>
+        </svg>
+        <span class="bedz-sredina">jeftino<br>i pošteno</span>
+      </div>
+    </section>
+
+    <!-- ================= TRAKA (marquee) ================= -->
+    <div class="traka" aria-hidden="true">
+      <div class="traka-unutra">
+        <span>KNJIGE IZ JEDNE BIBLIOTEKE — STANJA POŠTENO OPISANA — KUPOVINA PREKO NJUŠKALA — KUPOVINA PREKO VINTEDA — NEMA ŽURBE, IMA KNJIGA — </span>
+        <span>KNJIGE IZ JEDNE BIBLIOTEKE — STANJA POŠTENO OPISANA — KUPOVINA PREKO NJUŠKALA — KUPOVINA PREKO VINTEDA — NEMA ŽURBE, IMA KNJIGA — </span>
+      </div>
+    </div>
+
+    <!-- ================= STATISTIKA ================= -->
+    <section class="statistika">
+      <div class="stat"><span class="stat-broj" id="stat-naslova">—</span><span class="stat-oznaka mono">NASLOVA U PONUDI</span></div>
+      <div class="stat"><span class="stat-broj" id="stat-vrijednost">—</span><span class="stat-oznaka mono">UKUPNA CIJENA POLICE</span></div>
+      <div class="stat"><span class="stat-broj">2</span><span class="stat-oznaka mono">PLATFORME (NJUŠKALO, VINTED)</span></div>
+      <div class="stat"><span class="stat-broj">100<small>%</small></span><span class="stat-oznaka mono">STANJA OPISANO POŠTENO</span></div>
+    </section>
+
+    <!-- ================= KATALOG ================= -->
+    <section class="katalog" id="katalog">
+      <div class="katalog-zaglavlje">
+        <p class="nadnaslov mono">01 — PONUDA</p>
+        <h2>Sve što traži <em>novu policu</em></h2>
+      </div>
+
+      <div class="alatna-traka" role="group" aria-label="Filtriranje i pretraga">
+        <div class="filteri">
+          <button class="chip aktivan" data-filter="sve">SVE</button>
+          <button class="chip" data-filter="njuskalo">NJUŠKALO</button>
+          <button class="chip" data-filter="vinted">VINTED</button>
+        </div>
+        <label class="trazilica">
+          <span class="mono">TRAŽI:</span>
+          <input type="search" id="trazi" placeholder="naslov, autor, oznaka…" aria-label="Pretraži knjige">
+        </label>
+        <div class="sort" role="group" aria-label="Sortiranje">
+          <button class="chip aktivan" data-sort="redoslijed">UNOS</button>
+          <button class="chip" data-sort="cijena">CIJENA</button>
+          <button class="chip" data-sort="naslov">A—Ž</button>
+        </div>
+      </div>
+
+      <div id="popis" class="popis"></div>
+    </section>
+
+    <!-- ================= KAKO KUPITI ================= -->
+    <section class="kako" id="kako">
+      <div class="kako-zaglavlje">
+        <p class="nadnaslov mono">02 — POSTUPAK</p>
+        <h2>Kako se <em>kupuje</em></h2>
+      </div>
+      <ol class="koraci">
+        <li class="korak">
+          <span class="korak-broj">1</span>
+          <h3>Izaberi naslov</h3>
+          <p>Pronađi knjigu u katalogu i klikni na njezin oglas — vodi te ravno na Njuškalo ili Vinted.</p>
+        </li>
+        <li class="korak">
+          <span class="korak-broj">2</span>
+          <h3>Javi mi se</h3>
+          <p>Poruka, dogovor i plaćanje idu preko platforme. Bez e-maila, bez forme, bez posrednika.</p>
+        </li>
+        <li class="korak">
+          <span class="korak-broj">3</span>
+          <h3>Preuzmi knjigu</h3>
+          <p>Osobno ili dostavom — točno kako piše u oglasu. Od tebe samo prijatno čitanje.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- ================= PODNOŽJE ================= -->
+  <footer class="podnozje">
+    <p class="zbogom">Sretno <em>čitanje.</em></p>
+    <div class="podnozje-info mono">
+      <p>OVA STRANICA NE PRODAJE NIŠTA NI NE OBRAĐUJE PLAĆANJA — SAMO JE IZLOG. SVE KUPNJE, PORUKE I PLAĆANJA DEŠAVAJU SE NA NJUŠKALU I VINTEDU.</p>
+      <p>© <span id="godina"></span> · ANTIKVARIJAT DRUGO IZDANJE · KARLOVAC · IZRAĐENO S LJUBAVI PREMA KNJIGAMA</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
