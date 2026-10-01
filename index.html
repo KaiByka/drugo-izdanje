@@ -137,6 +137,49 @@
         </li>
       </ol>
     </section>
+
+    <!-- ================= KONTAKT ================= -->
+    <section class="kontakt" id="kontakt">
+      <div class="kontakt-zaglavlje">
+        <p class="nadnaslov mono">03 — KONTAKT</p>
+        <h2>Pitaj <em>izravno</em></h2>
+        <p class="kontakt-uvod">
+          Draže ti je prvo pitati pa tek onda kliknuti na oglas? Pošalji upit ovdje —
+          kao na oglasniku: pitanje o stanju, rezervacija, dogovor oko preuzimanja
+          ili dostave. Odgovaram na e-mail, a kupovina onda ide preko platforme
+          koja ti najviše odgovara.
+        </p>
+        <p class="kontakt-privatnost mono">TVOJ E-MAIL KORISTIM SAMO ZA ODGOVOR — BEZ NEWSLETTERA, BEZ PREPRODAJE PODATAKA.</p>
+      </div>
+
+      <form class="forma" id="forma">
+        <div class="forma-red">
+          <label class="polje">
+            <span class="mono">IME (NE OBAVEZNO)</span>
+            <input type="text" name="ime" autocomplete="name">
+          </label>
+          <label class="polje">
+            <span class="mono">TVOJ E-MAIL *</span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+        </div>
+        <label class="polje">
+          <span class="mono">KNJIGA</span>
+          <select name="knjiga" id="f-knjiga">
+            <option value="">— opće pitanje, bez knjige —</option>
+          </select>
+        </label>
+        <label class="polje">
+          <span class="mono">PORUKA *</span>
+          <textarea name="poruka" id="f-poruka" rows="5" required placeholder="Pitanje o stanju, rezervacija, preuzimanje u Karlovcu, dostava…"></textarea>
+        </label>
+        <input type="checkbox" name="botcheck" class="hp-cbv" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="forma-dno">
+          <button type="submit" class="posalji mono">POŠALJI UPIT</button>
+          <p class="forma-status mono" id="forma-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </section>
   </main>
 
   <!-- ================= PODNOŽJE ================= -->

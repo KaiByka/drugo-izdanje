@@ -29,6 +29,21 @@ Ne briši je — u `data.js` dodaj `prodano: true` u njezin blok. Karta ostaje u
 katalogu (dobro je za SEO i dokazuje da se prodaje), ali dobiva žig PRODANO i
 gubi poveznice, a brojači "u ponudi" je više ne broje.
 
+## Kontakt forma (upit bez platforme)
+
+Stranica može imati vlastiti "oglasnički" kanal: posjetitelj te pita izravno
+s stranice, a poruka stiže na tvoj e-mail. Bez poslužitelja — koristi besplatni
+[Web3Forms](https://web3forms.com):
+
+1. Na web3forms.com unesi svoj e-mail i kopiraj pristupni ključ (Access Key).
+2. Ključ zalijepi u `data.js`, u `KONTAKT.kljuc`.
+3. Osvježi stranicu — pojavljuje se sekcija "Pitaj izravno" i gumb "Pitaj"
+   uz svaku knjigu u ponudi.
+
+Ključ u kodu je javan po dizajnu (stranica je statična pa on mora biti u
+kodu — Web3Forms je tako zamišljen), a botove zadržava skriveno honeypot
+polje. Prazan `kljuc: ""` povlači cijelu sekciju i gumbe sa stranice.
+
 ### Slike naslovnica (opcionalno)
 
 Bez slike stranica sama nacrta tipografsku naslovnicu (isti naslov = ista

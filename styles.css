@@ -628,6 +628,98 @@ a { color: inherit; }
 }
 
 /* ----------------------------------------------------------
+   kontakt forma
+---------------------------------------------------------- */
+.kontakt {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 100px) var(--pad) clamp(64px, 9vw, 110px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.kontakt h2 {
+  font-size: clamp(34px, 5vw, 64px);
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.kontakt-uvod {
+  margin-top: 24px;
+  max-width: 44ch;
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--tinta-meko);
+}
+
+.kontakt-privatnost {
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--tinta-meko);
+}
+
+.forma { display: flex; flex-direction: column; gap: 26px; }
+.forma-red { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.polje { display: flex; flex-direction: column; gap: 10px; }
+.polje .mono {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--tinta-meko);
+}
+.polje input, .polje select, .polje textarea {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--tinta);
+  border-radius: 0;
+  padding: 8px 2px;
+  color: var(--tinta);
+}
+.polje input:focus, .polje select:focus, .polje textarea:focus {
+  outline: none;
+  border-bottom-color: var(--rđa);
+}
+.polje textarea { resize: vertical; line-height: 1.6; }
+.polje input::placeholder, .polje textarea::placeholder { color: var(--tinta-meko); opacity: 0.7; }
+
+.hp-cbv { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+.forma-dno { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+.posalji {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  padding: 12px 22px;
+  background: var(--tinta);
+  color: var(--papir);
+  border: 1px solid var(--tinta);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.posalji:hover { background: var(--rđa); border-color: var(--rđa); }
+.posalji:disabled { opacity: 0.55; cursor: wait; }
+
+.forma-status {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tinta-meko);
+}
+.forma-status.greska { color: var(--rđa); }
+
+@media (max-width: 900px) {
+  .kontakt { grid-template-columns: 1fr; }
+  .forma-red { grid-template-columns: 1fr; }
+}
+
+/* ----------------------------------------------------------
    podnožje
 ---------------------------------------------------------- */
 .podnozje {

@@ -27,6 +27,14 @@ const SITE = {
   podnaslov: "knjige iz jedne osobne biblioteke",
 };
 
+const KONTAKT = {
+  /* Pristupni ključ za Web3Forms (https://web3forms.com) — besplatno:
+     unesi svoj e-mail na stranici i ključ ti stiče na mail.
+     Prazan string = kontakt forma i gumbi "Pitaj" su skriveni sa stranice.
+     Ključ je javan po dizajnu (stranica je statična) — ne diraj ga. */
+  kljuc: "c035b1cf-81f4-4cc3-b6b2-6d5481a2817e",
+};
+
 const KNJIGE = [
   {
     naslov: "Zločin i kazna",

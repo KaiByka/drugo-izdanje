@@ -183,6 +183,9 @@ function slikaZa(knjiga, idx) {
   return naslovnica(knjiga, idx);
 }
 
+const FORMA_AKTIVNA =
+  typeof KONTAKT !== "undefined" && Boolean(KONTAKT.kljuc) && typeof fetch === "function";
+
 function redak(knjiga, idx) {
   const tocka = BOJE_STANJA[knjiga.stanje] || "#a07c22";
   const prodano = Boolean(knjiga.prodano);
@@ -195,6 +198,11 @@ function redak(knjiga, idx) {
   if (!prodano && knjiga.vinted) {
     linkovi.push(
       `<a class="dugme" href="${esc(knjiga.vinted)}" target="_blank" rel="noopener noreferrer">Vinted <span class="strelica">&#8599;</span></a>`
+    );
+  }
+  if (FORMA_AKTIVNA && !prodano) {
+    linkovi.push(
+      `<button type="button" class="dugme pitaj" data-knjiga="${esc(knjiga.naslov)}">Pitaj <span class="strelica">&#8595;</span></button>`
     );
   }
   let kupnja;
@@ -395,10 +403,67 @@ function strukturiraniPodaci() {
   document.head.appendChild(skripta);
 }
 
+/* ---------- kontakt forma ----------
+   Šalje upit na e-mail preko Web3Forms-a (ključ se postavlja u data.js).
+   Bez ključa cijela sekcija nestaje sa stranice. */
+
+function postaviFormu() {
+  const sekcija = document.getElementById("kontakt");
+  if (!sekcija) return;
+  if (!FORMA_AKTIVNA) {
+    sekcija.remove();
+    return;
+  }
+
+  const izbor = $("#f-knjiga");
+  KNJIGE.filter((k) => !k.prodano).forEach((k) => {
+    const opcija = document.createElement("option");
+    opcija.value = k.naslov;
+    opcija.textContent = `${k.naslov} — ${k.autor} (${k.cijena} €)`;
+    izbor.appendChild(opcija);
+  });
+
+  $("#popis").addEventListener("click", (e) => {
+    const gumb = e.target.closest ? e.target.closest(".pitaj") : null;
+    if (!gumb) return;
+    izbor.value = gumb.dataset.knjiga;
+    const glatko = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    sekcija.scrollIntoView({ behavior: glatko ? "smooth" : "auto", block: "start" });
+    $("#f-poruka").focus();
+  });
+
+  $("#forma").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const status = $("#forma-status");
+    const gumb = e.target.querySelector(".posalji");
+    gumb.disabled = true;
+    status.classList.remove("greska");
+    status.textContent = "Šaljem…";
+    try {
+      const data = new FormData(e.target);
+      data.append("access_key", KONTAKT.kljuc);
+      const knjiga = data.get("knjiga");
+      data.append("subject", knjiga ? `Upit: ${knjiga} — Drugo izdanje` : "Upit — Drugo izdanje");
+      data.append("from_name", "Antikvarijat Drugo izdanje");
+      const odgovor = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
+      const json = await odgovor.json();
+      if (!json.success) throw new Error(json.message || "Slanje nije uspjelo.");
+      status.textContent = "Poslano — javljam se uskoro.";
+      e.target.reset();
+    } catch (err) {
+      status.textContent = "Slanje nije uspjelo — probaj ponovno ili me potraži na Njuškalu.";
+      status.classList.add("greska");
+    } finally {
+      gumb.disabled = false;
+    }
+  });
+}
+
 /* ---------- start ---------- */
 
 $("#godina").textContent = String(new Date().getFullYear());
 procitajStanje();
 osvjeziStatistiku();
+postaviFormu();
 strukturiraniPodaci();
 crtaj();
