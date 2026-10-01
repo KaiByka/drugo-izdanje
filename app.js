@@ -288,8 +288,8 @@ function osvjeziStatistiku() {
 
 document.querySelectorAll("[data-filter]").forEach((gumb) => {
   gumb.addEventListener("click", () => {
-    document.querySelectorAll("[data-filter]").forEach((g) => g.classList.remove("aktivan"));
-    gumb.classList.add("aktivan");
+    document.querySelectorAll("[data-filter]").forEach((g) => { g.classList.remove("aktivan"); g.setAttribute("aria-pressed", "false"); });
+    gumb.classList.add("aktivan"); gumb.setAttribute("aria-pressed", "true");
     filter = gumb.dataset.filter;
     crtaj();
   });
@@ -297,16 +297,18 @@ document.querySelectorAll("[data-filter]").forEach((gumb) => {
 
 document.querySelectorAll("[data-sort]").forEach((gumb) => {
   gumb.addEventListener("click", () => {
-    document.querySelectorAll("[data-sort]").forEach((g) => g.classList.remove("aktivan"));
-    gumb.classList.add("aktivan");
+    document.querySelectorAll("[data-sort]").forEach((g) => { g.classList.remove("aktivan"); g.setAttribute("aria-pressed", "false"); });
+    gumb.classList.add("aktivan"); gumb.setAttribute("aria-pressed", "true");
     sortiranje = gumb.dataset.sort;
     crtaj();
   });
 });
 
+let tajmerPretrage = null;
 $("#trazi").addEventListener("input", (e) => {
   upit = e.target.value;
-  crtaj();
+  clearTimeout(tajmerPretrage);
+  tajmerPretrage = setTimeout(crtaj, 150);
 });
 
 /* ---------- strukturirani podaci (SEO) ----------

@@ -10,6 +10,8 @@
   <meta property="og:title" content="Antikvarijat Drugo izdanje — rabljene knjige, Karlovac">
   <meta property="og:description" content="Knjige iz jedne osobne biblioteke u Karlovcu — kupovina preko Njuškala i Vinteda.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kaibyka.github.io/drugo-izdanje/">
+  <link rel="canonical" href="https://kaibyka.github.io/drugo-izdanje/">
   <meta property="og:image" content="https://kaibyka.github.io/drugo-izdanje/preview.png">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
@@ -93,18 +95,18 @@
 
       <div class="alatna-traka" role="group" aria-label="Filtriranje i pretraga">
         <div class="filteri">
-          <button class="chip aktivan" data-filter="sve">SVE</button>
-          <button class="chip" data-filter="njuskalo">NJUŠKALO</button>
-          <button class="chip" data-filter="vinted">VINTED</button>
+          <button class="chip aktivan" data-filter="sve" aria-pressed="true">SVE</button>
+          <button class="chip" data-filter="njuskalo" aria-pressed="false">NJUŠKALO</button>
+          <button class="chip" data-filter="vinted" aria-pressed="false">VINTED</button>
         </div>
         <label class="trazilica">
           <span class="mono">TRAŽI:</span>
           <input type="search" id="trazi" placeholder="naslov, autor, oznaka…" aria-label="Pretraži knjige">
         </label>
         <div class="sort" role="group" aria-label="Sortiranje">
-          <button class="chip aktivan" data-sort="redoslijed">UNOS</button>
-          <button class="chip" data-sort="cijena">CIJENA</button>
-          <button class="chip" data-sort="naslov">A—Ž</button>
+          <button class="chip aktivan" data-sort="redoslijed" aria-pressed="true">UNOS</button>
+          <button class="chip" data-sort="cijena" aria-pressed="false">CIJENA</button>
+          <button class="chip" data-sort="naslov" aria-pressed="false">A—Ž</button>
         </div>
       </div>
 
