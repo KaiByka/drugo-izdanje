@@ -17,6 +17,9 @@
      vinted     — poveznica na tvoj oglas na Vintedu ("" ako ga nema)
      slika      — putanja do slike naslovnice, npr. "slike/1984.jpg" ("" =
                   stranica će sama nacrtati tipografsku naslovnicu)
+     prodano    — true kad je knjiga prodana: karta ostaje u katalogu s
+                  žigom PRODANO, bez poveznica, i ne broji se u statistici
+                  (polje nije obavezno; bez njega knjiga je u ponudi)
    ===================================================================== */
 
 const SITE = {
@@ -63,6 +66,7 @@ const KNJIGE = [
     njuskalo: "https://www.njuskalo.hr/ostale-knjige/vodic-kroz-galaksiju",
     vinted: "",
     slika: "",
+    prodano: false,
   },
   {
     naslov: "Stranac",

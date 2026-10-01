@@ -119,7 +119,7 @@ function prelomi(naslov, max) {
 }
 
 function naslovnica(knjiga, idx) {
-  const h = hashString(knjiga.naslov + knjiga.autor);
+  const h = hashString((knjiga.naslov || "") + (knjiga.autor || ""));
   const pal = PALETE[h % PALETE.length];
   const idUz = "uz-" + idx + "-" + (h % 9973);
 
@@ -151,7 +151,7 @@ function naslovnica(knjiga, idx) {
     <defs>${uzorak.defs}</defs>
     <rect width="300" height="450" fill="${pal.bg}"/>
     ${uzorak.tijelo}
-    <text x="38" y="52" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2" fill="${pal.fg}" opacity="0.75">${esc(knjiga.autor.toUpperCase())}</text>
+    <text x="38" y="52" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2" fill="${pal.fg}" opacity="0.75">${esc((knjiga.autor || "").toUpperCase())}</text>
     <text font-family="Fraunces, Georgia, serif" font-weight="600" font-size="${velicina}" fill="${pal.fg}">${naslovTekst}</text>
     <line x1="38" y1="${yZadnje + 22}" x2="140" y2="${yZadnje + 22}" stroke="${pal.fg}" stroke-width="1.5" opacity="0.5"/>
     <text x="38" y="428" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="3" fill="${pal.fg}" opacity="0.55">BR. ${String(idx + 1).padStart(2, "0")} · DRUGO IZDANJE</text>
@@ -185,38 +185,44 @@ function slikaZa(knjiga, idx) {
 
 function redak(knjiga, idx) {
   const tocka = BOJE_STANJA[knjiga.stanje] || "#a07c22";
+  const prodano = Boolean(knjiga.prodano);
   const linkovi = [];
-  if (knjiga.njuskalo) {
+  if (!prodano && knjiga.njuskalo) {
     linkovi.push(
       `<a class="dugme" href="${esc(knjiga.njuskalo)}" target="_blank" rel="noopener noreferrer">Njuškalo <span class="strelica">&#8599;</span></a>`
     );
   }
-  if (knjiga.vinted) {
+  if (!prodano && knjiga.vinted) {
     linkovi.push(
       `<a class="dugme" href="${esc(knjiga.vinted)}" target="_blank" rel="noopener noreferrer">Vinted <span class="strelica">&#8599;</span></a>`
     );
   }
-  const kupnja = linkovi.length
-    ? `<div class="knjiga-linkovi">${linkovi.join("")}</div>`
-    : `<span class="knjiga-prodano">Oglas uskoro</span>`;
+  let kupnja;
+  if (prodano) {
+    kupnja = `<span class="knjiga-prodano">Prodano</span>`;
+  } else if (linkovi.length) {
+    kupnja = `<div class="knjiga-linkovi">${linkovi.join("")}</div>`;
+  } else {
+    kupnja = `<span class="knjiga-prodano">Oglas uskoro</span>`;
+  }
 
   return `
-  <article class="knjiga">
+  <article class="knjiga${prodano ? " prodano" : ""}">
     <p class="knjiga-br">&#8470; <b>${String(idx + 1).padStart(2, "0")}</b></p>
-    <div class="knjiga-slika">${slikaZa(knjiga, idx)}</div>
+    <div class="knjiga-slika">${slikaZa(knjiga, idx)}${prodano ? `<span class="zig-prodano" aria-hidden="true">Prodano</span>` : ""}</div>
     <div class="knjiga-info">
-      <h3 class="knjiga-naslov">${esc(knjiga.naslov)}</h3>
-      <p class="knjiga-autor">${esc(knjiga.autor)}</p>
+      <h3 class="knjiga-naslov">${esc(knjiga.naslov || "—")}</h3>
+      ${knjiga.autor ? `<p class="knjiga-autor">${esc(knjiga.autor)}</p>` : ""}
       <div class="knjiga-meta">
-        <span>${knjiga.godina}</span>
-        <span>${esc(knjiga.izdavac)}</span>
-        <span class="meta-stanje"><span class="tocka" style="background:${tocka}"></span>${esc(knjiga.stanje)}</span>
+        ${knjiga.godina ? `<span>${knjiga.godina}</span>` : ""}
+        ${knjiga.izdavac ? `<span>${esc(knjiga.izdavac)}</span>` : ""}
+        ${knjiga.stanje ? `<span class="meta-stanje"><span class="tocka" style="background:${tocka}"></span>${esc(knjiga.stanje)}</span>` : ""}
         ${(knjiga.tagovi || []).map((t) => `<span>#${esc(t)}</span>`).join("")}
       </div>
       ${knjiga.napomena ? `<p class="knjiga-napomena">${esc(knjiga.napomena)}</p>` : ""}
     </div>
     <div class="knjiga-kupnja">
-      <p class="knjiga-cijena">${knjiga.cijena} <small>&euro;</small></p>
+      <p class="knjiga-cijena">${knjiga.cijena != null ? `${knjiga.cijena} <small>&euro;</small>` : "—"}</p>
       ${kupnja}
     </div>
   </article>`;
@@ -275,31 +281,44 @@ function crtaj() {
     }
   }
 
-  $("#broj-knjiga").textContent = String(KNJIGE.length).padStart(2, "0");
+  $("#broj-knjiga").textContent = String(KNJIGE.filter((k) => !k.prodano).length).padStart(2, "0");
+  spremiStanje();
 }
 
 function osvjeziStatistiku() {
-  const ukupno = KNJIGE.reduce((s, k) => s + (Number(k.cijena) || 0), 0);
-  $("#stat-naslova").textContent = KNJIGE.length;
+  const uPonudi = KNJIGE.filter((k) => !k.prodano);
+  const ukupno = uPonudi.reduce((s, k) => s + (Number(k.cijena) || 0), 0);
+  $("#stat-naslova").textContent = uPonudi.length;
   $("#stat-vrijednost").innerHTML = `${ukupno} <small>&euro;</small>`;
 }
 
 /* ---------- događaji ---------- */
 
+function oznaciAktivne() {
+  document.querySelectorAll("[data-filter]").forEach((g) => {
+    const aktivan = g.dataset.filter === filter;
+    g.classList.toggle("aktivan", aktivan);
+    g.setAttribute("aria-pressed", String(aktivan));
+  });
+  document.querySelectorAll("[data-sort]").forEach((g) => {
+    const aktivan = g.dataset.sort === sortiranje;
+    g.classList.toggle("aktivan", aktivan);
+    g.setAttribute("aria-pressed", String(aktivan));
+  });
+}
+
 document.querySelectorAll("[data-filter]").forEach((gumb) => {
   gumb.addEventListener("click", () => {
-    document.querySelectorAll("[data-filter]").forEach((g) => { g.classList.remove("aktivan"); g.setAttribute("aria-pressed", "false"); });
-    gumb.classList.add("aktivan"); gumb.setAttribute("aria-pressed", "true");
     filter = gumb.dataset.filter;
+    oznaciAktivne();
     crtaj();
   });
 });
 
 document.querySelectorAll("[data-sort]").forEach((gumb) => {
   gumb.addEventListener("click", () => {
-    document.querySelectorAll("[data-sort]").forEach((g) => { g.classList.remove("aktivan"); g.setAttribute("aria-pressed", "false"); });
-    gumb.classList.add("aktivan"); gumb.setAttribute("aria-pressed", "true");
     sortiranje = gumb.dataset.sort;
+    oznaciAktivne();
     crtaj();
   });
 });
@@ -310,6 +329,33 @@ $("#trazi").addEventListener("input", (e) => {
   clearTimeout(tajmerPretrage);
   tajmerPretrage = setTimeout(crtaj, 150);
 });
+
+/* ---------- stanje u URL-u ----------
+   Filtrirani pogled može se podijeliti kao poveznica, npr.
+   #f=njuskalo&q=pratchett&s=cijena */
+
+function procitajStanje() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  const f = p.get("f");
+  const s = p.get("s");
+  const q = p.get("q");
+  if (f && Array.from(document.querySelectorAll("[data-filter]")).some((g) => g.dataset.filter === f)) filter = f;
+  if (s && Array.from(document.querySelectorAll("[data-sort]")).some((g) => g.dataset.sort === s)) sortiranje = s;
+  if (q) {
+    upit = q;
+    $("#trazi").value = upit;
+  }
+  oznaciAktivne();
+}
+
+function spremiStanje() {
+  const dijelovi = [];
+  if (filter !== "sve") dijelovi.push("f=" + filter);
+  if (upit.trim()) dijelovi.push("q=" + encodeURIComponent(upit.trim()));
+  if (sortiranje !== "redoslijed") dijelovi.push("s=" + sortiranje);
+  const url = dijelovi.length ? "#" + dijelovi.join("&") : location.pathname + location.search;
+  try { history.replaceState(null, "", url); } catch (e) { /* neki okviri na file:// ne dopuštaju */ }
+}
 
 /* ---------- strukturirani podaci (SEO) ----------
    Gradi JSON-LD katalog iz KNJIGE pa tražilice vide naslove,
@@ -331,7 +377,7 @@ function strukturiraniPodaci() {
         price: String(k.cijena),
         priceCurrency: "EUR",
         url,
-        availability: "https://schema.org/InStock",
+        availability: k.prodano ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
       };
     }
     return { "@type": "ListItem", position: i + 1, item: knjiga };
@@ -352,6 +398,7 @@ function strukturiraniPodaci() {
 /* ---------- start ---------- */
 
 $("#godina").textContent = String(new Date().getFullYear());
+procitajStanje();
 osvjeziStatistiku();
 strukturiraniPodaci();
 crtaj();

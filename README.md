@@ -23,6 +23,12 @@ book/
 3. U `njuskalo` ili `vinted` stavi poveznicu na svoj oglas (prazan string `""` ako oglas još ne postoji — tada se prikazuje "Oglas uskoro").
 4. Spremi i osvježi stranicu. Gotovo — statistika i brojač se sami ažuriraju.
 
+## Kad se knjiga proda
+
+Ne briši je — u `data.js` dodaj `prodano: true` u njezin blok. Karta ostaje u
+katalogu (dobro je za SEO i dokazuje da se prodaje), ali dobiva žig PRODANO i
+gubi poveznice, a brojači "u ponudi" je više ne broje.
+
 ### Slike naslovnica (opcionalno)
 
 Bez slike stranica sama nacrta tipografsku naslovnicu (isti naslov = ista

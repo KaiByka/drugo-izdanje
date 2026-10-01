@@ -518,6 +518,27 @@ a { color: inherit; }
   padding: 10px 14px;
 }
 
+/* prodana knjiga */
+.knjiga.prodano .knjiga-slika { position: relative; filter: grayscale(1); opacity: 0.72; }
+.knjiga.prodano:hover .knjiga-slika,
+.knjiga.prodano:focus-within .knjiga-slika { transform: rotate(-2.2deg); }
+.zig-prodano {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rđa);
+  border: 2px solid var(--rđa);
+  padding: 7px 10px 7px 13px;
+  background: rgba(239, 233, 220, 0.82);
+  white-space: nowrap;
+}
+
 /* pojava pri scrollu */
 .knjiga { opacity: 0; transform: translateY(26px); }
 .knjiga.vidljivo { opacity: 1; transform: none; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
