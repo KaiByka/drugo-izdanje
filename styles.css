@@ -138,7 +138,7 @@ a { color: inherit; }
 }
 
 .hero h1 {
-  font-size: clamp(64px, 12.5vw, 180px);
+  font-size: clamp(38px, 12vw, 180px);
   line-height: 0.86;
   font-weight: 600;
   letter-spacing: -0.035em;
@@ -568,10 +568,13 @@ a { color: inherit; }
 }
 
 @media (max-width: 600px) {
-  .knjiga { grid-template-columns: minmax(0, 1fr); }
-  .knjiga-br { position: absolute; top: 18px; right: 18px; }
-  .knjiga-slika { width: 120px; }
-  .knjiga-kupnja { grid-column: auto; flex-wrap: wrap; }
+  .knjiga { grid-template-columns: 104px minmax(0, 1fr); }
+  .knjiga-br { position: static; grid-column: 1 / -1; }
+  .knjiga-slika { width: 104px; }
+  .knjiga-kupnja { grid-column: 1 / -1; flex-wrap: wrap; }
+  .chip { padding: 12px 16px; }
+  .dugme, .knjiga-prodano { padding-top: 13px; padding-bottom: 13px; }
+  .zig-prodano { font-size: 12px; }
 }
 
 /* ----------------------------------------------------------
@@ -716,8 +719,16 @@ a { color: inherit; }
 .forma-status.greska { color: var(--rđa); }
 
 @media (max-width: 900px) {
-  .kontakt { grid-template-columns: 1fr; }
+  .kontakt { grid-template-columns: minmax(0, 1fr); }
   .forma-red { grid-template-columns: 1fr; }
+}
+
+/* na dodišnim uređajima iOS zumira stranicu pri fokusu na polje
+   manje od 16px — sva polja vraćamo na 16px */
+@media (hover: none) {
+  .trazilica input,
+  .polje input, .polje select, .polje textarea { font-size: 16px; }
+  .posalji { padding: 14px 22px; }
 }
 
 /* ----------------------------------------------------------
