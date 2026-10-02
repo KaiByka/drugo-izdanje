@@ -59,7 +59,7 @@ const KNJIGE = [
     tagovi: ["Strip"],
     napomena: "Stanje je kao novo, bez ikakvih oštećenja",
     njuskalo: "",
-    vinted: "",
+    vinted: "https://www.vinted.com/items/10215775193-beskonacni-itinerer-kroz-svet-strip-albuma-knjiga-4",
     slika: "https://znanje.hr/product-images/24825989-8c43-47c6-9be2-813cae0bfaae.jpg",
   }
 ];
